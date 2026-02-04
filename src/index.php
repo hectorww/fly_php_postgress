@@ -1,6 +1,6 @@
 <?php
 // Tu cadena de conexión (Lo ideal es que esto venga de getenv('DATABASE_URL'))
-$databaseUrl = "postgresql://postgres:CPcEbRncTBomorYywVRvFjXqsyHQJCMy@postgres.railway.internal:5432/railway";
+$databaseUrl = "postgresql://postgres:sNqOAoQsYMPmGjOHkoZIzIqqklMMQexa@postgres.railway.internal:5432/railway";
 
 // Parseamos la URL para extraer los componentes
 $dbConfig = parse_url($databaseUrl);
