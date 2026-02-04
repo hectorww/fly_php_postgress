@@ -24,10 +24,14 @@ COPY sql/init.sql /sql/init.sql
 # 6. Permisos
 RUN chown -R www-data:www-data /var/www/html
 
-# 7. Entrypoint que inicializa la BD y luego arranca Apache
+# 7. Entrypoint que limpia módulos MPM, inicializa la BD y arranca Apache
 RUN printf '%s\n' \
 '#!/bin/bash' \
 'set -e' \
+'' \
+'# Solución al error de MPM en Railway' \
+'a2dismod mpm_event || true' \
+'a2enmod mpm_prefork || true' \
 '' \
 'if [ -n "$DATABASE_URL" ] && [ -f /sql/init.sql ]; then' \
 '  echo "Inicializando base de datos..."' \
@@ -41,4 +45,5 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 8080
 
+# Usamos CMD en lugar de ENTRYPOINT para mayor compatibilidad en Railway
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
